@@ -103,7 +103,7 @@ pipeline {
         always { echo "This will always run" }
         success {
             echo 'The build is successful'
-            emailext body: "Project: ${JOB_NAME} <br>Build Number: ${BUILD_NUMBER <br> URL DE BUILD: ${BUILD_URL}",
+            emailext body: "Project: ${JOB_NAME} <br>Build Number: ${BUILD_NUMBER} <br> URL DE BUILD: ${BUILD_URL}",
                 from: "${EMAIL_FROM}",
                 mimeType: "text/html",
                 attachLog: true,
