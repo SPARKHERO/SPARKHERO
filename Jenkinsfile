@@ -43,14 +43,15 @@ pipeline {
         }
 
         stage ('Deployment preview') {
+            sh "echo ${env.GIT_BRANCH}"
             when {
-                expression {env.GIT_BRANCH == 'preview'}
+                expression {${env.GIT_BRANCH} == 'preview'}
             }
                 steps {
                     withCredentials([sshUserPrivateKey(credentialsId:SECRET_ID, keyFileVariable: 'sshKey')]) {
                         sh "echo Deploying preview branch"
                         sh "${sshKey}"
-                        sh "echo ===============================2"
+                        sh "echo ===============================3"
                         //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'mkdir /tmp/${RELEASE}/'"
                         //sh "scp -v -i ${sshKey} *.gz ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW}:/tmp/${RELEASE}/.'"
                         //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'cp -pr /tmp/${RELEASE} ${APP_ROOT_PREVIEW}/.'"
