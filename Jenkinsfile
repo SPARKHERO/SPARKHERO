@@ -36,7 +36,7 @@ pipeline {
                 sh "echo ===============================2"
                 checkout scm
                 sh "touch ${TAR_NAME}"
-                sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME}"
+                sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME} ."
                 sh "pwd"
                 sh "ls -lart"
             }
