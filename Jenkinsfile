@@ -33,8 +33,8 @@ pipeline {
                 sh "echo '==============================='"
                 checkout scm
                 sh "touch ${TAR_NAME}"
-                sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME}"
-                sh "ls"
+                //sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME}"
+                sh "ls -lart"
             }
         }
 
@@ -45,14 +45,16 @@ pipeline {
                 steps {
                     withCredentials([sshUserPrivateKey(credentialsId:SECRET_ID, keyFileVariable: 'sshKey')]) {
                         sh "echo Deploying preview branch"
-                        sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'mkdir /tmp/${RELEASE}/'"
-                        sh "scp -v -i ${sshKey} *.gz ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW}:/tmp/${RELEASE}/.'"
-                        sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'cp -pr /tmp/${RELEASE} ${APP_ROOT_PREVIEW}/.'"
+                        sh "${sshKey}"
+                        sh "echo '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'"
+                        //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'mkdir /tmp/${RELEASE}/'"
+                        //sh "scp -v -i ${sshKey} *.gz ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW}:/tmp/${RELEASE}/.'"
+                        //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'cp -pr /tmp/${RELEASE} ${APP_ROOT_PREVIEW}/.'"
 
-                        sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'ln -sfn ${APP_ROOT_PREVIEW}/${RELEASE}/ ${APP_ROOT_PREVIEW}/${LINKNAME}'"
-                        sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'tar -xhzvf ${APP_ROOT_PREVIEW}/${LINKNAME}/${TAR_NAME} -C ${APP_ROOT_PREVIEW}/${LINKNAME}/'"
-                        //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'rm -r /tmp/${RELEASE}/'"
-                        sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'chmod 755 -R ${APP_ROOT_PREVIEW}/${LINKNAME}/*'"
+                        //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'ln -sfn ${APP_ROOT_PREVIEW}/${RELEASE}/ ${APP_ROOT_PREVIEW}/${LINKNAME}'"
+                        //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'tar -xhzvf ${APP_ROOT_PREVIEW}/${LINKNAME}/${TAR_NAME} -C ${APP_ROOT_PREVIEW}/${LINKNAME}/'"
+                        ////sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'rm -r /tmp/${RELEASE}/'"
+                        //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'chmod 755 -R ${APP_ROOT_PREVIEW}/${LINKNAME}/*'"
                     }
                 }
         }
