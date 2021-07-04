@@ -36,7 +36,7 @@ pipeline {
                 sh "echo ===============================2"
                 checkout scm
                 sh "touch ${TAR_NAME}"
-                //sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME}"
+                sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME}"
                 sh "pwd"
                 sh "ls -lart"
             }
@@ -44,7 +44,7 @@ pipeline {
 
         stage ('Deployment preview') {
             when {
-                expression {env.GIT_BRANCH == 'origin/preview'}
+                expression {env.GIT_BRANCH == 'preview'}
             }
                 steps {
                     withCredentials([sshUserPrivateKey(credentialsId:SECRET_ID, keyFileVariable: 'sshKey')]) {
