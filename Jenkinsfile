@@ -29,11 +29,15 @@ pipeline {
         stage ('Check out') {
             steps {
                 sh "echo Checking out ......."
-                sh "echo ${env.BUILD_ID}"
+
                 sh "echo ===============================1"
+                sh "echo ${env.BUILD_ID}"
+                sh "echo ${env.GIT_BRANCH}"
+                sh "echo ===============================2"
                 checkout scm
                 sh "touch ${TAR_NAME}"
                 //sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME}"
+                sh "pwd"
                 sh "ls -lart"
             }
         }
