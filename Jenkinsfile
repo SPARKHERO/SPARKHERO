@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh "echo Checking out ......."
                 sh "echo ${env.BUILD_ID}"
-                sh "echo '==============================='"
+                sh "echo ===============================1"
                 checkout scm
                 sh "touch ${TAR_NAME}"
                 //sh "tar --exclude-vcs --exclude='*.gz' --exclude='*jenkin*' -czvf ${TAR_NAME}"
@@ -46,7 +46,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId:SECRET_ID, keyFileVariable: 'sshKey')]) {
                         sh "echo Deploying preview branch"
                         sh "${sshKey}"
-                        sh "echo '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'"
+                        sh "echo ===============================2"
                         //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'mkdir /tmp/${RELEASE}/'"
                         //sh "scp -v -i ${sshKey} *.gz ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW}:/tmp/${RELEASE}/.'"
                         //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'cp -pr /tmp/${RELEASE} ${APP_ROOT_PREVIEW}/.'"
