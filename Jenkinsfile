@@ -43,13 +43,13 @@ pipeline {
         }
 
         stage ('Deployment preview') {
-            sh "echo ${env.GIT_BRANCH}"
             when {
                 expression {${env.GIT_BRANCH} == 'preview'}
             }
                 steps {
                     withCredentials([sshUserPrivateKey(credentialsId:SECRET_ID, keyFileVariable: 'sshKey')]) {
                         sh "echo Deploying preview branch"
+                        sh "echo ${env.GIT_BRANCH}"
                         sh "${sshKey}"
                         sh "echo ===============================3"
                         //sh "ssh -v -i ${sshKey} ${JENKINS_USER_PREVIEW}@${HOST_PREVIEW} 'mkdir /tmp/${RELEASE}/'"
