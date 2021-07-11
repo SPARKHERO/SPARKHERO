@@ -1,4 +1,4 @@
 import os, sys
-for i in range(18):
+for i in range(2):
     print("Hello World!!!!")
 
